@@ -137,6 +137,10 @@
     "total": "Total",
     "confirm": "Confirm",
     "cancel": "Cancel"
+  },
+  "wallet": {
+    "balance": "Wallet Balance",
+    "total_value": "Total Value"
   }
 }
 

@@ -43,5 +43,9 @@
       "description": "Join thousands of creators and collectors on ArcNFT",
       "button": "Start Creating"
     }
+  },
+  "wallet": {
+    "balance": "Υπόλοιπο Πορτοφολιού",
+    "total_value": "Συνολική Αξία"
   }
 }

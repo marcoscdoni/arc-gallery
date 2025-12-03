@@ -5,8 +5,10 @@ import { formatUnits } from 'viem'
 import { TOKENS } from '@/lib/tokens'
 import { Wallet, ChevronDown } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
+import { useTranslations } from 'next-intl'
 
 export function WalletBalance() {
+  const t = useTranslations('wallet')
   const { address, isConnected } = useAccount()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -94,7 +96,7 @@ export function WalletBalance() {
             <div className="space-y-2">
               <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-2">
                 <Wallet className="h-4 w-4 text-violet-400" />
-                <span className="text-xs font-medium text-slate-400">Wallet Balance</span>
+                <span className="text-xs font-medium text-slate-400">{t('balance')}</span>
               </div>
               
               {/* USDC Balance */}
@@ -125,7 +127,7 @@ export function WalletBalance() {
 
               {/* Total */}
               <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-2">
-                <span className="text-xs font-medium text-slate-500">Total Value</span>
+                <span className="text-xs font-medium text-slate-500">{t('total_value')}</span>
                 <span className="text-sm font-bold text-white">
                   ${totalValue.toFixed(2)}
                 </span>

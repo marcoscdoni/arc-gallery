@@ -137,5 +137,9 @@
     "total": "Total",
     "confirm": "Confirmar",
     "cancel": "Cancelar"
+  },
+  "wallet": {
+    "balance": "Saldo da Carteira",
+    "total_value": "Valor Total"
   }
 }
