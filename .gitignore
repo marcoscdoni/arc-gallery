@@ -22,3 +22,6 @@ frontend/build
 # Misc
 .DS_Store
 *.log
+
+# Internal docs
+.github/instructions/
