@@ -36,8 +36,8 @@ export default function ProfilePage() {
   
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [bannerFile, setBannerFile] = useState<File | null>(null)
-  const [avatarPreview, setAvatarPreview] = useState<string>('')
-  const [bannerPreview, setBannerPreview] = useState<string>('')
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
+  const [bannerPreview, setBannerPreview] = useState<string | null>(null)
 
   // Load profile and NFTs on mount
   useEffect(() => {
@@ -62,8 +62,9 @@ export default function ProfilePage() {
           discord_handle: profileData.discord_handle || '',
           website_url: profileData.website_url || '',
         })
-        setAvatarPreview(profileData.avatar_url || '')
-        setBannerPreview(profileData.banner_url || '')
+        // CRITICAL FIX: Set preview URLs from database
+        setAvatarPreview(profileData.avatar_url || null)
+        setBannerPreview(profileData.banner_url || null)
       }
     } catch (error) {
       console.error('Error loading profile:', error)
