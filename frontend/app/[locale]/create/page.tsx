@@ -7,7 +7,7 @@ import { Upload, Image as ImageIcon, Sparkles, CheckCircle, XCircle } from 'luci
 import { useTranslations } from 'next-intl'
 import { useAccount } from 'wagmi'
 import { useNFTMint, useNFTApprove, useMarketplaceListing } from '@/hooks/use-nft-contract'
-import { uploadToIPFS, uploadMetadataToIPFS, createMockTokenURI } from '@/lib/ipfs'
+import { uploadNFT, type UploadProgress } from '@/lib/nft-storage'
 import { useRouter } from '@/i18n/routing'
 
 export default function CreatePage() {
@@ -26,6 +26,7 @@ export default function CreatePage() {
   const [currentStep, setCurrentStep] = useState<'form' | 'uploading' | 'minting' | 'approving' | 'listing' | 'success' | 'error'>('form')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [mintedTokenId, setMintedTokenId] = useState<bigint | null>(null)
+  const [uploadProgress, setUploadProgress] = useState<{ image: number; metadata: number }>({ image: 0, metadata: 0 })
   
   const { mint, isPending: isMinting, isConfirming: isMintConfirming, isSuccess: isMintSuccess, hash: mintHash } = useNFTMint()
   const { approve, isPending: isApproving, isConfirming: isApproveConfirming, isSuccess: isApproveSuccess } = useNFTApprove()
@@ -59,42 +60,35 @@ export default function CreatePage() {
     }
 
     try {
-      // Step 1: Upload image to IPFS
+      // Step 1: Upload image and metadata to IPFS via NFT.Storage
       setCurrentStep('uploading')
-      let imageURI: string
+      setUploadProgress({ image: 0, metadata: 0 })
       
-      try {
-        imageURI = await uploadToIPFS(imageFile)
-      } catch (error) {
-        console.warn('IPFS upload failed, using mock URI for development')
-        // Fallback para desenvolvimento
-        imageURI = imagePreview || ''
-      }
+      const { imageUrl, metadataUrl } = await uploadNFT(
+        imageFile,
+        {
+          name: formData.name,
+          description: formData.description,
+          attributes: [
+            {
+              trait_type: 'Royalty',
+              value: parseFloat(formData.royalty),
+            },
+          ],
+        },
+        (progress: UploadProgress) => {
+          setUploadProgress(prev => ({ ...prev, image: progress.percentage }))
+        },
+        (progress: UploadProgress) => {
+          setUploadProgress(prev => ({ ...prev, metadata: progress.percentage }))
+        }
+      )
 
-      // Step 2: Create and upload metadata
-      const metadata = {
-        name: formData.name,
-        description: formData.description,
-        image: imageURI,
-        attributes: [
-          {
-            trait_type: 'Royalty',
-            value: parseFloat(formData.royalty),
-          },
-        ],
-      }
+      console.log('Uploaded to IPFS:', { imageUrl, metadataUrl })
 
-      let tokenURI: string
-      try {
-        tokenURI = await uploadMetadataToIPFS(metadata)
-      } catch (error) {
-        console.warn('Metadata upload failed, using mock URI for development')
-        tokenURI = await createMockTokenURI(metadata)
-      }
-
-      // Step 3: Mint NFT
+      // Step 2: Mint NFT with metadata URI
       setCurrentStep('minting')
-      await mint(tokenURI)
+      await mint(metadataUrl)
 
       // TODO: Get token ID from event logs
       // For now, we'll need to wait for the transaction and parse logs
@@ -131,7 +125,8 @@ export default function CreatePage() {
             <div className="space-y-3">
               <StepIndicator 
                 label="Uploading to IPFS" 
-                status={currentStep === 'uploading' ? 'active' : 'complete'} 
+                status={currentStep === 'uploading' ? 'active' : 'complete'}
+                progress={currentStep === 'uploading' ? Math.round((uploadProgress.image + uploadProgress.metadata) / 2) : undefined}
               />
               <StepIndicator 
                 label="Minting NFT" 
@@ -380,23 +375,44 @@ export default function CreatePage() {
 }
 
 // Step indicator component
-function StepIndicator({ label, status }: { label: string; status: 'pending' | 'active' | 'complete' }) {
+function StepIndicator({ 
+  label, 
+  status, 
+  progress 
+}: { 
+  label: string; 
+  status: 'pending' | 'active' | 'complete';
+  progress?: number;
+}) {
   return (
-    <div className="flex items-center gap-3">
-      <div className={`flex h-6 w-6 items-center justify-center rounded-full ${
-        status === 'complete' ? 'bg-green-500' : status === 'active' ? 'bg-violet-500' : 'bg-gray-700'
-      }`}>
-        {status === 'complete' ? (
-          <CheckCircle className="h-4 w-4 text-white" />
-        ) : status === 'active' ? (
-          <div className="h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
-        ) : (
-          <div className="h-2 w-2 rounded-full bg-gray-500" />
+    <div className="space-y-2">
+      <div className="flex items-center gap-3">
+        <div className={`flex h-6 w-6 items-center justify-center rounded-full ${
+          status === 'complete' ? 'bg-green-500' : status === 'active' ? 'bg-violet-500' : 'bg-gray-700'
+        }`}>
+          {status === 'complete' ? (
+            <CheckCircle className="h-4 w-4 text-white" />
+          ) : status === 'active' ? (
+            <div className="h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          ) : (
+            <div className="h-2 w-2 rounded-full bg-gray-500" />
+          )}
+        </div>
+        <span className={`text-sm ${status === 'pending' ? 'text-gray-500' : 'text-white'}`}>
+          {label}
+        </span>
+        {status === 'active' && progress !== undefined && (
+          <span className="ml-auto text-xs text-violet-400">{progress}%</span>
         )}
       </div>
-      <span className={`text-sm ${status === 'pending' ? 'text-gray-500' : 'text-white'}`}>
-        {label}
-      </span>
+      {status === 'active' && progress !== undefined && (
+        <div className="ml-9 h-1.5 w-full max-w-xs overflow-hidden rounded-full bg-gray-700">
+          <div 
+            className="h-full bg-gradient-to-r from-violet-500 to-cyan-500 transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      )}
     </div>
   )
 }

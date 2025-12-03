@@ -25,6 +25,7 @@
     "lucide-react": "^0.555.0",
     "next": "16.0.6",
     "next-intl": "^4.5.7",
+    "nft.storage": "^7.2.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "tailwind-merge": "^3.4.0",
