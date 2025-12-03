@@ -72,7 +72,27 @@
       "docs": "Documentation"
     },
     "rights": "Tous droits réservés.",
-    "terms": "Conditions d'Utilisation",
-    "privacy": "Politique de Confidentialité"
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité"
+  },
+  "toast": {
+    "profile": {
+      "updated": "Profil mis à jour avec succès !",
+      "updateFailed": "Échec de la mise à jour du profil",
+      "uploadingAvatar": "Téléchargement de l'avatar vers IPFS...",
+      "uploadingBanner": "Téléchargement de la bannière vers IPFS...",
+      "savingDatabase": "Enregistrement dans la base de données...",
+      "saving": "Enregistrement du profil..."
+    },
+    "auth": {
+      "required": "Authentification requise. Veuillez signer le message pour vérifier votre portefeuille.",
+      "ownProfileOnly": "Vous ne pouvez modifier que votre propre profil !"
+    },
+    "clipboard": {
+      "addressCopied": "Adresse copiée dans le presse-papiers !"
+    },
+    "error": {
+      "generic": "Une erreur s'est produite. Veuillez réessayer."
+    }
   }
 }

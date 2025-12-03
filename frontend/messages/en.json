@@ -168,6 +168,26 @@
     "rights": "All rights reserved.",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy"
+  },
+  "toast": {
+    "profile": {
+      "updated": "Profile updated successfully!",
+      "updateFailed": "Failed to update profile",
+      "uploadingAvatar": "Uploading avatar to IPFS...",
+      "uploadingBanner": "Uploading banner to IPFS...",
+      "savingDatabase": "Saving to database...",
+      "saving": "Saving profile..."
+    },
+    "auth": {
+      "required": "Authentication required. Please sign the message to verify your wallet.",
+      "ownProfileOnly": "You can only edit your own profile!"
+    },
+    "clipboard": {
+      "addressCopied": "Address copied to clipboard!"
+    },
+    "error": {
+      "generic": "An error occurred. Please try again."
+    }
   }
 }
 

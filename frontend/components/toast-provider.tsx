@@ -12,8 +12,9 @@ export function ToastProvider() {
       position="top-right"
       expand={true}
       richColors
-      closeButton
+      closeButton={false}
       theme="dark"
+      duration={3000}
       toastOptions={{
         style: {
           background: 'rgba(15, 23, 42, 0.8)',

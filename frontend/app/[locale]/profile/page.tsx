@@ -11,8 +11,10 @@ import { uploadImage } from '@/lib/nft-storage'
 import { useWalletAuth } from '@/hooks/use-wallet-auth'
 import { toast } from 'sonner'
 import { ConfirmDialog } from '@/components/confirm-dialog'
+import { useTranslations } from 'next-intl'
 
 export default function ProfilePage() {
+  const t = useTranslations('toast')
   const { address, isConnected } = useAccount()
   const { signAuth, isSigningAuth, authError, isAuthenticated } = useWalletAuth()
   const [activeTab, setActiveTab] = useState<'collected' | 'created' | 'listed'>('collected')
@@ -119,19 +121,19 @@ export default function ProfilePage() {
       // Verify that connected wallet matches the profile being edited
       const signature = await signAuth();
       if (!signature) {
-        toast.error('Authentication required. Please sign the message to verify your wallet.');
+        toast.error(t('auth.required'));
         return;
       }
     }
     
     // Double-check: connected wallet must match profile wallet
     if (address.toLowerCase() !== address.toLowerCase()) {
-      toast.error('You can only edit your own profile!');
+      toast.error(t('auth.ownProfileOnly'));
       return;
     }
     
     setIsSaving(true)
-    const uploadToast = toast.loading('Saving profile...')
+    const uploadToast = toast.loading(t('profile.saving'))
     
     try {
       let avatarUrl = profile?.avatar_url || ''
@@ -139,18 +141,18 @@ export default function ProfilePage() {
       
       // Upload avatar if changed
       if (avatarFile) {
-        toast.loading('Uploading avatar to IPFS...', { id: uploadToast })
+        toast.loading(t('profile.uploadingAvatar'), { id: uploadToast })
         avatarUrl = await uploadImage(avatarFile)
       }
       
       // Upload banner if changed
       if (bannerFile) {
-        toast.loading('Uploading banner to IPFS...', { id: uploadToast })
+        toast.loading(t('profile.uploadingBanner'), { id: uploadToast })
         bannerUrl = await uploadImage(bannerFile)
       }
       
       // Save profile to Supabase with wallet validation
-      toast.loading('Saving to database...', { id: uploadToast })
+      toast.loading(t('profile.savingDatabase'), { id: uploadToast })
       const updatedProfile = await upsertProfile({
         wallet_address: address,
         username: formData.username || undefined,
@@ -167,13 +169,13 @@ export default function ProfilePage() {
         setIsEditing(false)
         setAvatarFile(null)
         setBannerFile(null)
-        toast.success('Profile updated successfully!', { id: uploadToast })
+        toast.success(t('profile.updated'), { id: uploadToast })
       } else {
-        toast.error('Failed to update profile', { id: uploadToast })
+        toast.error(t('profile.updateFailed'), { id: uploadToast })
       }
     } catch (error) {
       console.error('Error saving profile:', error)
-      toast.error('Error saving profile: ' + (error as Error).message, { id: uploadToast })
+      toast.error(t('error.generic') + ': ' + (error as Error).message, { id: uploadToast })
     } finally {
       setIsSaving(false)
     }
@@ -217,7 +219,7 @@ export default function ProfilePage() {
   const copyAddress = () => {
     if (address) {
       navigator.clipboard.writeText(address)
-      toast.success('Address copied to clipboard!')
+      toast.success(t('clipboard.addressCopied'))
     }
   }
 

@@ -168,5 +168,25 @@
     "rights": "Todos os direitos reservados.",
     "terms": "Termos de Serviço",
     "privacy": "Política de Privacidade"
+  },
+  "toast": {
+    "profile": {
+      "updated": "Perfil atualizado com sucesso!",
+      "updateFailed": "Falha ao atualizar perfil",
+      "uploadingAvatar": "Enviando avatar para IPFS...",
+      "uploadingBanner": "Enviando banner para IPFS...",
+      "savingDatabase": "Salvando no banco de dados...",
+      "saving": "Salvando perfil..."
+    },
+    "auth": {
+      "required": "Autenticação necessária. Por favor, assine a mensagem para verificar sua carteira.",
+      "ownProfileOnly": "Você só pode editar seu próprio perfil!"
+    },
+    "clipboard": {
+      "addressCopied": "Endereço copiado para a área de transferência!"
+    },
+    "error": {
+      "generic": "Ocorreu um erro. Por favor, tente novamente."
+    }
   }
 }

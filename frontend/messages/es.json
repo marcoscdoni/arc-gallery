@@ -74,5 +74,25 @@
     "rights": "Todos los derechos reservados.",
     "terms": "Términos de Servicio",
     "privacy": "Política de Privacidad"
+  },
+  "toast": {
+    "profile": {
+      "updated": "¡Perfil actualizado con éxito!",
+      "updateFailed": "Error al actualizar el perfil",
+      "uploadingAvatar": "Subiendo avatar a IPFS...",
+      "uploadingBanner": "Subiendo banner a IPFS...",
+      "savingDatabase": "Guardando en la base de datos...",
+      "saving": "Guardando perfil..."
+    },
+    "auth": {
+      "required": "Autenticación requerida. Por favor, firma el mensaje para verificar tu billetera.",
+      "ownProfileOnly": "¡Solo puedes editar tu propio perfil!"
+    },
+    "clipboard": {
+      "addressCopied": "¡Dirección copiada al portapapeles!"
+    },
+    "error": {
+      "generic": "Ocurrió un error. Por favor, inténtalo de nuevo."
+    }
   }
 }
