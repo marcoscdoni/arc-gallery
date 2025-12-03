@@ -90,7 +90,7 @@ export function LanguageSelector() {
                     </svg>
                   )}
                 </button>
-              ))}}
+              ))}
             </div>
           </div>
       )}

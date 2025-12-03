@@ -27,21 +27,6 @@ export function WalletBalance() {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isOpen])
-  const dropdownRef = useRef<HTMLDivElement>(null)
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isOpen])
   
   // Get native USDC balance
   const { data: usdcBalance, isLoading: usdcLoading } = useBalance({
