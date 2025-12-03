@@ -134,8 +134,18 @@ export async function getProfile(walletAddress: string): Promise<Profile | null>
 }
 
 export async function upsertProfile(
-  profile: Partial<Profile> & { wallet_address: string }
+  profile: Partial<Profile> & { wallet_address: string },
+  authenticatedWallet: string
 ): Promise<Profile | null> {
+  // CRITICAL SECURITY CHECK: Verify wallet matches
+  if (profile.wallet_address.toLowerCase() !== authenticatedWallet.toLowerCase()) {
+    console.error('Security violation: Wallet mismatch', {
+      profileWallet: profile.wallet_address,
+      authenticatedWallet: authenticatedWallet
+    });
+    throw new Error('Cannot edit profile: wallet address mismatch');
+  }
+  
   // Create client with wallet context for RLS
   const client = createSupabaseClient(profile.wallet_address);
 
