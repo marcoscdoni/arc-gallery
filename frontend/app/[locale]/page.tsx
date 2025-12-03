@@ -146,8 +146,8 @@ export default function HomePage() {
               <p className="mt-3 text-sm leading-relaxed text-slate-400">
                 {t('features.low_fees.description')}
               </p>
-              <p className="mt-2 text-xs text-violet-400 font-medium">
-                Powered by USDC stablecoin
+              <p className="mt-2 text-xs text-violet-300 font-medium">
+                💰 Powered by USDC stablecoin
               </p>
             </div>
 
@@ -188,7 +188,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section - Clean with gradient border */}
-      <section className="relative isolate overflow-hidden py-24 sm:py-32">
+      <section className="relative isolate overflow-hidden py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl rounded-3xl p-12 text-center bg-gradient-to-br from-violet-500/20 to-purple-500/10 border border-violet-500/30 shadow-2xl shadow-violet-500/20">
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
@@ -200,7 +200,7 @@ export default function HomePage() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href="/create"
-                className="rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-500/50 transition-all hover:shadow-violet-500/70 hover:scale-105"
+                className="rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3.5 text-sm font-semibold text-white shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all hover:shadow-[0_0_30px_rgba(168,85,247,0.7)] hover:scale-105"
               >
                 {t('cta.button')}
               </Link>

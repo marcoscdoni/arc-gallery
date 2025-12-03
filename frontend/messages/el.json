@@ -47,5 +47,32 @@
   "wallet": {
     "balance": "Υπόλοιπο Πορτοφολιού",
     "total_value": "Συνολική Αξία"
+  },
+  "footer": {
+    "tagline": "Το ταχύτερο NFT marketplace στο Arc Layer 1",
+    "marketplace": {
+      "title": "Marketplace",
+      "explore": "Εξερεύνηση",
+      "collections": "Συλλογές",
+      "creators": "Δημιουργοί",
+      "ranking": "Κατάταξη"
+    },
+    "account": {
+      "title": "Ο Λογαριασμός μου",
+      "profile": "Προφίλ",
+      "favorites": "Αγαπημένα",
+      "sales": "Οι Πωλήσεις μου",
+      "settings": "Ρυθμίσεις"
+    },
+    "resources": {
+      "title": "Πόροι",
+      "help": "Κέντρο Βοήθειας",
+      "partners": "Συνεργάτες",
+      "blog": "Blog",
+      "docs": "Τεκμηρίωση"
+    },
+    "rights": "Με επιφύλαξη παντός δικαιώματος.",
+    "terms": "Όροι Χρήσης",
+    "privacy": "Πολιτική Απορρήτου"
   }
 }

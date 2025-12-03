@@ -47,5 +47,32 @@
   "wallet": {
     "balance": "Saldo de la Cartera",
     "total_value": "Valor Total"
+  },
+  "footer": {
+    "tagline": "El marketplace de NFTs más rápido en Arc Layer 1",
+    "marketplace": {
+      "title": "Marketplace",
+      "explore": "Explorar",
+      "collections": "Colecciones",
+      "creators": "Creadores",
+      "ranking": "Ranking"
+    },
+    "account": {
+      "title": "Mi Cuenta",
+      "profile": "Perfil",
+      "favorites": "Favoritos",
+      "sales": "Mis Ventas",
+      "settings": "Configuración"
+    },
+    "resources": {
+      "title": "Recursos",
+      "help": "Centro de Ayuda",
+      "partners": "Socios",
+      "blog": "Blog",
+      "docs": "Documentación"
+    },
+    "rights": "Todos los derechos reservados.",
+    "terms": "Términos de Servicio",
+    "privacy": "Política de Privacidad"
   }
 }
