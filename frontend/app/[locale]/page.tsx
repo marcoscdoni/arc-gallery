@@ -70,7 +70,7 @@ export default function HomePage() {
             {/* Right: Featured NFT showcase - "Show, don't tell" */}
             <div className="relative hidden lg:block">
               <div className="grid grid-cols-2 gap-4">
-                {/* Featured NFT cards with clean borders */}
+                {/* Featured NFT cards with clean borders - all aligned */}
                 <div className="group rounded-2xl overflow-hidden bg-white/5 border border-white/10 transition-all hover:border-violet-500/50 hover:shadow-xl hover:shadow-violet-500/20 hover:-translate-y-1">
                   <div className="aspect-square bg-gradient-to-br from-violet-500 to-purple-600 relative">
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -83,7 +83,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 
-                <div className="group rounded-2xl overflow-hidden bg-white/5 border border-white/10 transition-all hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1 mt-8">
+                <div className="group rounded-2xl overflow-hidden bg-white/5 border border-white/10 transition-all hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1">
                   <div className="aspect-square bg-gradient-to-br from-blue-500 to-cyan-600 relative">
                     <div className="absolute inset-0 flex items-center justify-center">
                       <TrendingUp className="h-16 w-16 text-white opacity-50" />
@@ -95,7 +95,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="group rounded-2xl overflow-hidden bg-white/5 border border-white/10 transition-all hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-1 -mt-8">
+                <div className="group rounded-2xl overflow-hidden bg-white/5 border border-white/10 transition-all hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-1">
                   <div className="aspect-square bg-gradient-to-br from-purple-500 to-pink-600 relative">
                     <div className="absolute inset-0 flex items-center justify-center">
                       <Shield className="h-16 w-16 text-white opacity-50" />
