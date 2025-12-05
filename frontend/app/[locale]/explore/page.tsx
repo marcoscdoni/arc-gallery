@@ -217,7 +217,7 @@ export default function ExplorePage() {
             {filteredNFTs.map((nft) => (
               <NFTCard
                 key={nft.id}
-                id={nft.token_id.toString()}
+                id={nft.id}
                 name={nft.name}
                 image={nft.image_url}
                 price={BigInt(nft.price || '0')}
