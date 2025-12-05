@@ -165,36 +165,44 @@ export default function NFTDetailPage() {
               </div>
             </div>
 
-            {/* Price Card - TODO: fetch listing data from Supabase */}
-            {/* 
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
-              <div className="mb-4">
-                <p className="text-sm text-gray-400">Current Price</p>
-                <div className="mt-1 flex items-baseline gap-2">
-                  <p className="text-3xl font-bold text-white">{nft.price}</p>
-                  <p className="text-lg text-gray-400">USDC</p>
+            {/* Price Card */}
+            {nft.price && nft.listing_id ? (
+              <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+                <div className="mb-4">
+                  <p className="text-sm text-gray-400">Current Price</p>
+                  <div className="mt-1 flex items-baseline gap-2">
+                    <p className="text-3xl font-bold text-white">{nft.price}</p>
+                    <p className="text-lg text-gray-400">USDC</p>
+                  </div>
                 </div>
-              </div>
 
-              {isOwner ? (
-                <div className="space-y-2">
-                  <button className="w-full rounded-lg bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-violet-500/50 transition hover:bg-violet-500">
-                    Update Listing
+                {isOwner ? (
+                  <div className="space-y-2">
+                    <button className="w-full rounded-lg bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-violet-500/50 transition hover:bg-violet-500">
+                      Update Listing
+                    </button>
+                    <button className="w-full rounded-lg border border-gray-700 bg-gray-900 px-6 py-3 font-semibold text-white transition hover:bg-gray-800">
+                      Cancel Listing
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setShowBuyModal(true)}
+                    className="w-full rounded-lg bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-violet-500/50 transition hover:bg-violet-500"
+                  >
+                    Buy Now
                   </button>
-                  <button className="w-full rounded-lg border border-gray-700 bg-gray-900 px-6 py-3 font-semibold text-white transition hover:bg-gray-800">
-                    Cancel Listing
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setShowBuyModal(true)}
-                  className="w-full rounded-lg bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-violet-500/50 transition hover:bg-violet-500"
-                >
-                  Buy Now
+                )}
+              </div>
+            ) : isOwner ? (
+              <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+                <p className="mb-4 text-sm text-gray-400">Status</p>
+                <p className="mb-4 text-lg font-semibold text-white">Not Listed</p>
+                <button className="w-full rounded-lg bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-violet-500/50 transition hover:bg-violet-500">
+                  List for Sale
                 </button>
-              )}
-            </div>
-            */}
+              </div>
+            ) : null}
 
             {/* NFT Info Card */}
             <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">

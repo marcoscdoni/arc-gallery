@@ -231,7 +231,14 @@ export async function getNFTs(filters?: {
 export async function getNFTById(id: string): Promise<NFT | null> {
   const { data, error } = await supabase
     .from('nfts')
-    .select('*')
+    .select(`
+      *,
+      listings!left(
+        listing_id,
+        price,
+        is_active
+      )
+    `)
     .eq('id', id)
     .single();
 
@@ -240,7 +247,16 @@ export async function getNFTById(id: string): Promise<NFT | null> {
     return null;
   }
 
-  return data;
+  // Process data to extract active listing price
+  const activeListings = (data as any).listings?.filter((l: any) => l.is_active) || [];
+  const activeListing = activeListings[0];
+
+  return {
+    ...data,
+    price: activeListing?.price,
+    listing_id: activeListing?.listing_id,
+    listings: undefined,
+  };
 }
 
 export async function getNFTByTokenId(contractAddress: string, tokenId: number): Promise<NFT | null> {

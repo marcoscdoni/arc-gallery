@@ -311,13 +311,58 @@ export default function CreatePage() {
   }, [listingPrice, mintedTokenId, isApproveSuccess])
 
   useEffect(() => {
-    if (!listingPrice) {
+    if (!listingPrice || !mintedTokenId || !address) {
       return
     }
-    if (isListingSuccess) {
+    if (isListingSuccess && listingHash) {
+      // Index listing in Supabase
+      const saveListing = async () => {
+        try {
+          // First, get the NFT ID from Supabase
+          const response = await fetch('/api/nfts/index', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              tokenId: mintedTokenId.toString(),
+              contractAddress: CONTRACTS.NFT,
+              ownerAddress: address,
+              creatorAddress: address,
+              name: formData.name,
+              description: formData.description,
+              imageUrl: uploadedImageUrl,
+              metadataUrl: uploadedMetadataUrl,
+              royaltyPercentage: parseFloat(formData.royalty),
+            }),
+          })
+
+          const nftData = await response.json()
+          
+          if (nftData && nftData.id) {
+            // Now save the listing
+            await fetch('/api/listings', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                nft_id: nftData.id,
+                token_id: mintedTokenId.toString(),
+                nft_contract: CONTRACTS.NFT,
+                seller: address,
+                price: listingPrice,
+                tx_hash: listingHash,
+              }),
+            })
+            
+            console.log('✅ NFT and listing indexed successfully')
+          }
+        } catch (error) {
+          console.error('❌ Failed to index NFT/listing:', error)
+        }
+      }
+
+      saveListing()
       setCurrentStep('success')
     }
-  }, [listingPrice, isListingSuccess])
+  }, [listingPrice, isListingSuccess, listingHash, mintedTokenId, address, formData, uploadedImageUrl, uploadedMetadataUrl])
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
