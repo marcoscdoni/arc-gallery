@@ -8,10 +8,13 @@ interface NFTCardProps {
   name: string
   image: string
   price: bigint
+  isListed?: boolean
+  owner?: string
 }
 
-export function NFTCard({ id, name, image, price }: NFTCardProps) {
+export function NFTCard({ id, name, image, price, isListed, owner }: NFTCardProps) {
   const formattedPrice = formatUnits(price, 18)
+  const hasPrice = price > 0n
 
   // Normalize image URLs and avoid passing empty string to <img src="">
   function normalizeImageUrl(img: string | undefined | null) {
@@ -74,13 +77,27 @@ export function NFTCard({ id, name, image, price }: NFTCardProps) {
         )}
       </div>
       <div className="p-5">
-        <h3 className="font-semibold text-white">{name}</h3>
-        {price > 0n && (
-          <div className="mt-4 flex items-center justify-between rounded-xl bg-white/5 px-3 py-2">
-            <span className="text-xs font-medium text-slate-500">Price</span>
-            <span className="font-semibold text-white">{formattedPrice} <span className="text-sm text-blue-400">USDC</span></span>
-          </div>
-        )}
+        <h3 className="font-semibold text-white truncate">{name}</h3>
+        
+        <div className="mt-3 space-y-2">
+          {hasPrice ? (
+            <>
+              <div className="flex items-center justify-between rounded-lg bg-violet-500/10 px-3 py-2">
+                <span className="text-xs font-medium text-violet-400">Price</span>
+                <span className="font-semibold text-white">{formattedPrice} <span className="text-sm text-violet-400">USDC</span></span>
+              </div>
+              <div className="flex items-center gap-1.5 px-1">
+                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span className="text-xs text-green-400 font-medium">Listed for sale</span>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center gap-1.5 px-1">
+              <div className="h-2 w-2 rounded-full bg-slate-500"></div>
+              <span className="text-xs text-slate-400 font-medium">Not listed</span>
+            </div>
+          )}
+        </div>
       </div>
     </Link>
   )

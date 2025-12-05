@@ -613,7 +613,8 @@ export default function ProfilePage() {
                 id={nft.id}
                 name={nft.name}
                 image={nft.image_url}
-                price={BigInt(nft.price || '0')}
+                price={nft.price && nft.price !== '' ? BigInt(nft.price) : 0n}
+                owner={nft.owner_address}
               />
             ))}
           </div>
