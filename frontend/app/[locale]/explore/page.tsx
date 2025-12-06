@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Search, SlidersHorizontal, TrendingUp, Clock, DollarSign } from 'lucide-react'
-import { NFTCard } from '@/components/nft-card'
+import { NFTCardWithListing } from '@/components/nft-card-with-listing'
 import { getNFTs, type NFT } from '@/lib/supabase'
 
 // Mock data - replace with actual contract data
@@ -215,12 +215,12 @@ export default function ExplorePage() {
         ) : filteredNFTs.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredNFTs.map((nft) => (
-              <NFTCard
+              <NFTCardWithListing
                 key={nft.id}
                 id={nft.id}
+                tokenId={nft.token_id}
                 name={nft.name}
                 image={nft.image_url}
-                price={BigInt(nft.price || '0')}
                 owner={nft.owner_address}
               />
             ))}

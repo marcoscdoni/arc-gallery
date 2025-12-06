@@ -75,6 +75,14 @@ contract ArcMarketplace is ReentrancyGuard, Ownable {
         address indexed seller
     );
     
+    event ListingUpdated(
+        address indexed nftAddress,
+        uint256 indexed tokenId,
+        address indexed seller,
+        uint256 oldPrice,
+        uint256 newPrice
+    );
+    
     event OfferMade(
         address indexed nftAddress,
         uint256 indexed tokenId,
@@ -202,6 +210,27 @@ contract ArcMarketplace is ReentrancyGuard, Ownable {
         listings[nftAddress][tokenId].active = false;
         
         emit ListingCancelled(nftAddress, tokenId, msg.sender);
+    }
+    
+    /**
+     * @dev Update listing price
+     * Only the seller can update the price of their active listing
+     */
+    function updateListing(
+        address nftAddress,
+        uint256 tokenId,
+        uint256 newPrice
+    ) public nonReentrant {
+        require(newPrice > 0, "Price must be greater than 0");
+        
+        Listing storage listing = listings[nftAddress][tokenId];
+        require(listing.active, "Listing not active");
+        require(listing.seller == msg.sender, "Not the seller");
+        
+        uint256 oldPrice = listing.price;
+        listing.price = newPrice;
+        
+        emit ListingUpdated(nftAddress, tokenId, msg.sender, oldPrice, newPrice);
     }
     
     /**

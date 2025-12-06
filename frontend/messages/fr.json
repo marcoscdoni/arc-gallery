@@ -44,6 +44,137 @@
       "button": "Start Creating"
     }
   },
+  "explore": {
+    "title": "Explorer les NFTs",
+    "description": "Découvrez des actifs numériques uniques sur Arc Layer 1",
+    "search": "Rechercher des NFTs par nom...",
+    "sortBy": "Trier par :",
+    "categories": {
+      "all": "Tous les Articles",
+      "art": "Art",
+      "photography": "Photographie",
+      "gaming": "Jeux",
+      "3d": "Modèles 3D"
+    },
+    "sort": {
+      "recent": "Récemment Ajoutés",
+      "priceLow": "Prix : Croissant",
+      "priceHigh": "Prix : Décroissant",
+      "trending": "Tendances"
+    },
+    "results": {
+      "found": "articles trouvés",
+      "noResults": "Aucun NFT Trouvé",
+      "tryAdjusting": "Essayez d'ajuster votre recherche ou vos filtres"
+    }
+  },
+  "create": {
+    "title": "Créer un NFT",
+    "description": "Frappez votre œuvre d'art numérique sur Arc Layer 1",
+    "upload": {
+      "title": "Télécharger un Fichier",
+      "clickUpload": "Cliquez pour télécharger ou glissez-déposez",
+      "fileTypes": "PNG, JPG, GIF jusqu'à 10MB",
+      "changeImage": "Changer l'Image"
+    },
+    "form": {
+      "name": "Nom",
+      "namePlaceholder": "ex. 'Rêves Abstraits #1'",
+      "price": "Prix (USDC)",
+      "pricePlaceholder": "0.00",
+      "priceHelp": "Laisser vide pour frapper sans lister",
+      "description": "Description",
+      "descriptionPlaceholder": "Parlez de votre œuvre d'art aux collectionneurs...",
+      "royalty": "Royalties (%)",
+      "royaltyHelp": "Gagnez ce pourcentage sur chaque vente secondaire (max 10%)",
+      "royaltyPercentage": "Pourcentage de Royalties",
+      "required": "*",
+      "mediaFile": "Fichier Média",
+      "dragDrop": "Glissez-déposez ou cliquez pour parcourir",
+      "fileTypes": "PNG, JPG, GIF • Max 10MB",
+      "uploadArtwork": "Télécharger l'Œuvre d'Art",
+      "changeImage": "Cliquez pour changer l'image"
+    },
+    "info": {
+      "title": "Frappe Gratuite Disponible",
+      "description": "Vos 5 premiers NFTs sont complètement gratuits. Pas de frais de gaz, pas de coûts cachés.",
+      "mintCost": "Cette frappe coûte {cost} USDC (vous avez utilisé {used}/5 frappes gratuites)",
+      "mintFree": "Cette frappe est gratuite (vous avez utilisé {used}/5 frappes gratuites)",
+      "checkingCost": "Vérification du coût de frappe..."
+    },
+    "button": {
+      "create": "Créer un NFT",
+      "minting": "Frappe en cours..."
+    },
+    "progress": {
+      "preparing": "Préparation du NFT...",
+      "minting": "Frappe du NFT...",
+      "approving": "Approbation...",
+      "listing": "Mise en Vente...",
+      "preparingDesc": "Téléchargement de votre œuvre d'art",
+      "mintingDesc": "Création de votre NFT sur la blockchain",
+      "approvingDesc": "Octroi des permissions au marketplace",
+      "listingDesc": "Publication sur le marketplace",
+      "stepPreparing": "Préparation du NFT",
+      "stepMinting": "Frappe du NFT",
+      "stepApproving": "Approbation du Marketplace",
+      "stepListing": "Mise en Vente",
+      "viewExplorer": "Voir sur l'Explorateur",
+      "confirmWallet": "Veuillez confirmer la transaction dans votre portefeuille"
+    },
+    "success": {
+      "title": "NFT Frappé avec Succès !",
+      "messageListed": "Votre NFT a été frappé et listé sur le marketplace",
+      "messageMinted": "Votre NFT a été frappé dans votre portefeuille",
+      "viewProfile": "Voir dans le Profil",
+      "createAnother": "Créer un Autre"
+    },
+    "error": {
+      "title": "Transaction Échouée",
+      "tryAgain": "Réessayer"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Gérez votre collection de NFTs et votre profil",
+    "connectWallet": "Connectez Votre Portefeuille",
+    "connectWalletDescription": "Veuillez connecter votre portefeuille pour voir votre profil",
+    "tabs": {
+      "collected": "Collectés",
+      "created": "Créés",
+      "listed": "Listés"
+    },
+    "stats": {
+      "collected": "Collectés",
+      "created": "Créés",
+      "totalValue": "Valeur Totale",
+      "floorPrice": "Prix Plancher"
+    },
+    "empty": {
+      "noNFTs": "Pas Encore de NFTs",
+      "collected": "Commencez à collectionner des NFTs sur le marketplace",
+      "created": "Créez votre premier NFT pour commencer",
+      "listed": "Listez vos NFTs à la vente"
+    }
+  },
+  "nft": {
+    "currentPrice": "Prix Actuel",
+    "buyNow": "Acheter Maintenant",
+    "updateListing": "Mettre à Jour l'Annonce",
+    "cancelListing": "Annuler l'Annonce",
+    "description": "Description",
+    "details": "Détails",
+    "activity": "Activité",
+    "ownedBy": "Propriété de",
+    "createdBy": "Créé par",
+    "you": "Vous",
+    "completePurchase": "Finaliser l'Achat",
+    "price": "Prix",
+    "creatorRoyalty": "Royalties du Créateur",
+    "total": "Total",
+    "confirm": "Confirmer",
+    "cancel": "Annuler"
+  },
   "wallet": {
     "balance": "Solde du Portefeuille",
     "total_value": "Valeur Totale",

@@ -338,8 +338,16 @@ export default function CreatePage() {
           const nftData = await response.json()
           
           if (nftData && nftData.id) {
+            console.log('📝 Preparing to save listing with data:', {
+              nft_id: nftData.id,
+              token_id: mintedTokenId.toString(),
+              nft_contract: CONTRACTS.NFT,
+              seller: address,
+              price: listingPrice,
+            })
+            
             // Now save the listing
-            await fetch('/api/listings', {
+            const listingResponse = await fetch('/api/listings', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -347,12 +355,23 @@ export default function CreatePage() {
                 token_id: mintedTokenId.toString(),
                 nft_contract: CONTRACTS.NFT,
                 seller: address,
-                price: listingPrice,
-                tx_hash: listingHash,
+                price: formData.price, // Use the original price in dollars, not the Wei value
               }),
             })
             
-            console.log('✅ NFT and listing indexed successfully')
+            const listingData = await listingResponse.json()
+            
+            console.log('📊 Listing response:', {
+              status: listingResponse.status,
+              ok: listingResponse.ok,
+              data: listingData
+            })
+            
+            if (listingResponse.ok) {
+              console.log('✅ NFT and listing indexed successfully:', listingData)
+            } else {
+              console.error('❌ Failed to save listing:', listingData)
+            }
           }
         } catch (error) {
           console.error('❌ Failed to index NFT/listing:', error)
@@ -406,9 +425,23 @@ export default function CreatePage() {
       setListingPrice(normalizedPrice)
       setMintedTokenId(null)
       setErrorMessage('')
+      
+      // Validate form data
+      if (!formData.name || !formData.description) {
+        setErrorMessage('Please fill in all required fields (Name and Description)')
+        setCurrentStep('error')
+        return
+      }
+      
       // Step 1: Upload image and metadata to IPFS via NFT.Storage
       setCurrentStep('uploading')
       setUploadProgress({ image: 0, metadata: 0 })
+      
+      console.log('📤 Uploading NFT with metadata:', {
+        name: formData.name,
+        description: formData.description,
+        royalty: formData.royalty,
+      })
       
       const { imageUrl, metadataUrl } = await uploadNFT(
         imageFile,
@@ -468,10 +501,10 @@ export default function CreatePage() {
         {/* Header */}
         <div className="mb-12">
           <h1 className="bg-gradient-to-r from-white via-violet-200 to-white bg-clip-text text-5xl font-bold tracking-tight text-transparent lg:text-6xl">
-            Create NFT
+            {t('title')}
           </h1>
           <p className="mt-3 max-w-2xl text-lg text-gray-400">
-            Mint your digital artwork on <span className="font-medium text-violet-400">Arc Layer 1</span>
+            {t('description')}
           </p>
         </div>
 
@@ -482,9 +515,9 @@ export default function CreatePage() {
               <div className="rounded-lg bg-red-500/20 p-2">
                 <XCircle className="h-5 w-5 text-red-400" />
               </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-red-200">Transaction Failed</h3>
-                <p className="mt-1 text-sm leading-relaxed text-red-300/90">{errorMessage}</p>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-red-200">{t('error.title')}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-red-300/90 break-words overflow-wrap-anywhere">{errorMessage}</p>
               </div>
               <button
                 onClick={() => {
@@ -493,9 +526,9 @@ export default function CreatePage() {
                   setErrorMessage('')
                   setCurrentStep('form')
                 }}
-                className="rounded-lg bg-red-500/20 px-4 py-2 text-sm font-medium text-red-200 transition hover:bg-red-500/30"
+                className="shrink-0 rounded-lg bg-red-500/20 px-4 py-2 text-sm font-medium text-red-200 transition hover:bg-red-500/30"
               >
-                Try Again
+                {t('error.tryAgain')}
               </button>
             </div>
           </div>
@@ -509,11 +542,11 @@ export default function CreatePage() {
                 <CheckCircle className="h-7 w-7 text-green-400" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-green-100">NFT Minted Successfully!</h3>
+                <h3 className="text-lg font-semibold text-green-100">{t('success.title')}</h3>
                 <p className="mt-1 text-sm text-green-200/80">
                   {formData.price && parseFloat(formData.price) > 0 
-                    ? 'Your NFT has been minted and listed on the marketplace'
-                    : 'Your NFT has been minted to your wallet'}
+                    ? t('success.messageListed')
+                    : t('success.messageMinted')}
                 </p>
               </div>
             </div>
@@ -522,14 +555,14 @@ export default function CreatePage() {
                 onClick={() => router.push('/profile')}
                 className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-violet-500"
               >
-                View in Profile
+                {t('success.viewProfile')}
                 <ArrowRight className="h-4 w-4" />
               </button>
               <button
                 onClick={() => window.location.reload()}
                 className="rounded-lg border border-gray-700 bg-gray-900/50 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800"
               >
-                Create Another
+                {t('success.createAnother')}
               </button>
             </div>
           </div>
@@ -545,37 +578,37 @@ export default function CreatePage() {
                   <div className="h-8 w-8 animate-spin rounded-full border-4 border-violet-500/30 border-t-violet-500" />
                 </div>
                 <h3 className="text-xl font-bold text-white">
-                  {currentStep === 'uploading' && 'Preparing NFT...'}
-                  {currentStep === 'minting' && 'Minting NFT...'}
-                  {currentStep === 'approving' && 'Approving...'}
-                  {currentStep === 'listing' && 'Listing for Sale...'}
+                  {currentStep === 'uploading' && t('progress.preparing')}
+                  {currentStep === 'minting' && t('progress.minting')}
+                  {currentStep === 'approving' && t('progress.approving')}
+                  {currentStep === 'listing' && t('progress.listing')}
                 </h3>
                 <p className="mt-2 text-sm text-gray-400">
-                  {currentStep === 'uploading' && 'Uploading your artwork'}
-                  {currentStep === 'minting' && 'Creating your NFT on the blockchain'}
-                  {currentStep === 'approving' && 'Granting marketplace permissions'}
-                  {currentStep === 'listing' && 'Publishing to marketplace'}
+                  {currentStep === 'uploading' && t('progress.preparingDesc')}
+                  {currentStep === 'minting' && t('progress.mintingDesc')}
+                  {currentStep === 'approving' && t('progress.approvingDesc')}
+                  {currentStep === 'listing' && t('progress.listingDesc')}
                 </p>
               </div>
 
               {/* Simple Progress Steps */}
               <div className="space-y-3">
                 <StepIndicator 
-                  label="Preparing NFT" 
+                  label={t('progress.stepPreparing')} 
                   status={currentStep === 'uploading' ? 'active' : (currentStep === 'minting' || currentStep === 'approving' || currentStep === 'listing' ? 'complete' : 'pending')} 
                 />
                 <StepIndicator 
-                  label="Minting NFT" 
+                  label={t('progress.stepMinting')} 
                   status={currentStep === 'minting' ? 'active' : (currentStep === 'approving' || currentStep === 'listing' ? 'complete' : 'pending')} 
                 />
               {formData.price && parseFloat(formData.price) > 0 && (
                 <>
                   <StepIndicator 
-                    label="Approving Marketplace" 
+                    label={t('progress.stepApproving')} 
                     status={currentStep === 'approving' ? 'active' : (currentStep === 'listing' ? 'complete' : 'pending')} 
                   />
                   <StepIndicator 
-                    label="Listing for Sale" 
+                    label={t('progress.stepListing')} 
                     status={currentStep === 'listing' ? 'active' : 'pending'} 
                   />
                 </>
@@ -592,13 +625,13 @@ export default function CreatePage() {
                   className="flex items-center gap-2 text-xs text-violet-400 transition hover:text-violet-300"
                 >
                   <ExternalLink className="h-3 w-3" />
-                  View on Explorer
+                  {t('progress.viewExplorer')}
                 </a>
               </div>
             )}
 
             <p className="mt-6 text-center text-xs text-gray-500">
-              Please confirm the transaction in your wallet
+              {t('progress.confirmWallet')}
             </p>
             </div>
           </div>
@@ -611,7 +644,7 @@ export default function CreatePage() {
           <div className="lg:sticky lg:top-8 self-start space-y-6">
             <div>
               <label className="mb-3 block text-sm font-semibold text-gray-300">
-                Media File <span className="text-red-400">*</span>
+                {t('form.mediaFile')} <span className="text-red-400">{t('form.required')}</span>
               </label>
               
               <div className="group relative aspect-square w-full overflow-hidden rounded-2xl border-2 border-dashed border-gray-700 bg-gray-900/50 transition-all hover:border-violet-500 hover:bg-gray-900">
@@ -623,7 +656,7 @@ export default function CreatePage() {
                       className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/70 opacity-0 transition-opacity group-hover:opacity-100">
-                      <p className="text-sm font-medium text-white">Click to change image</p>
+                      <p className="text-sm font-medium text-white">{t('form.changeImage')}</p>
                     </div>
                   </>
                 ) : (
@@ -631,12 +664,12 @@ export default function CreatePage() {
                     <div className="mb-5 rounded-full bg-gray-800/80 p-5 ring-1 ring-white/5 transition-all group-hover:bg-violet-500/20 group-hover:ring-violet-500/30">
                       <Upload className="h-10 w-10 text-gray-400 transition group-hover:text-violet-400" />
                     </div>
-                    <p className="text-lg font-semibold text-white">Upload Artwork</p>
+                    <p className="text-lg font-semibold text-white">{t('form.uploadArtwork')}</p>
                     <p className="mt-2 text-sm text-gray-500">
-                      Drag & drop or click to browse
+                      {t('form.dragDrop')}
                     </p>
                     <p className="mt-1 text-xs text-gray-600">
-                      PNG, JPG, GIF • Max 10MB
+                      {t('form.fileTypes')}
                     </p>
                   </div>
                 )}
@@ -657,9 +690,9 @@ export default function CreatePage() {
                   <Sparkles className="h-5 w-5 text-violet-300" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-violet-200">Free Minting Available</h3>
+                  <h3 className="font-semibold text-violet-200">{t('info.title')}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-violet-300/80">
-                    Your first 5 NFTs are completely free. No gas fees, no hidden costs.
+                    {t('info.description')}
                   </p>
                 </div>
               </div>
@@ -673,13 +706,13 @@ export default function CreatePage() {
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-300">
-                  Name <span className="text-red-400">*</span>
+                  {t('form.name')} <span className="text-red-400">{t('form.required')}</span>
                 </label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="e.g. 'Abstract Dreams #1'"
+                  placeholder={t('form.namePlaceholder')}
                   required
                   className="h-12 w-full rounded-lg border border-gray-700 bg-gray-900/50 px-4 text-white placeholder-gray-500 backdrop-blur-sm transition focus:border-violet-500 focus:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500/20"
                 />
@@ -687,14 +720,14 @@ export default function CreatePage() {
 
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-300">
-                  Price (USDC)
+                  {t('form.price')}
                 </label>
                 <div className="flex gap-2">
                   <input
                     type="number"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    placeholder="0.00"
+                    placeholder={t('form.pricePlaceholder')}
                     step="0.01"
                     min="0"
                     className="h-12 w-full rounded-lg border border-gray-700 bg-gray-900/50 px-4 text-white placeholder-gray-500 backdrop-blur-sm transition focus:border-violet-500 focus:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500/20"
@@ -703,15 +736,15 @@ export default function CreatePage() {
                     USDC
                   </div>
                 </div>
-                <p className="mt-1.5 text-xs text-gray-500">Leave empty to mint without listing</p>
+                <p className="mt-1.5 text-xs text-gray-500">{t('form.priceHelp')}</p>
                 {/* Dynamic mint cost info */}
                 {mintInfoLoading ? (
-                  <p className="mt-2 text-sm text-yellow-300">Checking mint cost...</p>
+                  <p className="mt-2 text-sm text-yellow-300">{t('info.checkingCost')}</p>
                 ) : freeMintCount !== null ? (
                   freeMintCount >= 5 ? (
-                    <p className="mt-2 text-sm text-yellow-300">This mint costs {mintPriceHuman ?? '—'} USDC (you've used {freeMintCount}/5 free mints)</p>
+                    <p className="mt-2 text-sm text-yellow-300">{t('info.mintCost', { cost: mintPriceHuman ?? '—', used: freeMintCount })}</p>
                   ) : (
-                    <p className="mt-2 text-sm text-green-300">This mint is free (you've used {freeMintCount}/5 free mints)</p>
+                    <p className="mt-2 text-sm text-green-300">{t('info.mintFree', { used: freeMintCount })}</p>
                   )
                 ) : null}
               </div>
@@ -720,13 +753,14 @@ export default function CreatePage() {
             {/* Description */}
             <div>
               <label className="mb-2 block text-sm font-semibold text-gray-300">
-                Description
+                {t('form.description')} <span className="text-red-400">{t('form.required')}</span>
               </label>
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Tell collectors about your artwork..."
+                placeholder={t('form.descriptionPlaceholder')}
                 rows={4}
+                required
                 className="w-full resize-none rounded-lg border border-gray-700 bg-gray-900/50 px-4 py-3 text-white placeholder-gray-500 backdrop-blur-sm transition focus:border-violet-500 focus:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500/20"
               />
             </div>
@@ -734,7 +768,7 @@ export default function CreatePage() {
             {/* Royalty Slider */}
             <div>
               <label className="mb-3 flex items-center justify-between text-sm font-semibold text-gray-300">
-                <span>Royalty Percentage</span>
+                <span>{t('form.royaltyPercentage')}</span>
                 <span className="rounded-lg bg-violet-500/20 px-3 py-1 font-mono text-violet-300">
                   {formData.royalty}%
                 </span>
@@ -766,7 +800,7 @@ export default function CreatePage() {
                 />
               </div>
               <p className="mt-2 text-xs text-gray-500">
-                Earn this percentage on every secondary sale (max 10%)
+                {t('form.royaltyHelp')}
               </p>
             </div>
 
@@ -782,27 +816,27 @@ export default function CreatePage() {
                   {isMinting || isMintConfirming ? (
                     <>
                       <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      {isMintConfirming ? 'Confirming Transaction...' : 'Minting NFT...'}
+                      {isMintConfirming ? t('progress.minting') : t('progress.minting')}
                     </>
                   ) : isApproving || isApproveConfirming ? (
                     <>
                       <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      Approving Marketplace...
+                      {t('progress.approving')}
                     </>
                   ) : isListing || isListingConfirming ? (
                     <>
                       <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      Creating Listing...
+                      {t('progress.listing')}
                     </>
                   ) : currentStep === 'uploading' ? (
                     <>
                       <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      Uploading to IPFS...
+                      {t('progress.preparing')}
                     </>
                   ) : (
                     <>
                       <ImageIcon className="h-5 w-5" />
-                      Create NFT
+                      {t('button.create')}
                     </>
                   )}
                 </span>

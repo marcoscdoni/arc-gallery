@@ -44,6 +44,137 @@
       "button": "Start Creating"
     }
   },
+  "explore": {
+    "title": "Εξερεύνηση NFTs",
+    "description": "Ανακαλύψτε μοναδικά ψηφιακά περιουσιακά στοιχεία στο Arc Layer 1",
+    "search": "Αναζήτηση NFTs κατά όνομα...",
+    "sortBy": "Ταξινόμηση κατά:",
+    "categories": {
+      "all": "Όλα τα Αντικείμενα",
+      "art": "Τέχνη",
+      "photography": "Φωτογραφία",
+      "gaming": "Παιχνίδια",
+      "3d": "3D Μοντέλα"
+    },
+    "sort": {
+      "recent": "Πρόσφατα Προστεθέντα",
+      "priceLow": "Τιμή: Από Χαμηλή σε Υψηλή",
+      "priceHigh": "Τιμή: Από Υψηλή σε Χαμηλή",
+      "trending": "Τάσεις"
+    },
+    "results": {
+      "found": "αντικείμενα βρέθηκαν",
+      "noResults": "Δεν Βρέθηκαν NFTs",
+      "tryAdjusting": "Δοκιμάστε να προσαρμόσετε την αναζήτηση ή τα φίλτρα σας"
+    }
+  },
+  "create": {
+    "title": "Δημιουργία NFT",
+    "description": "Δημιουργήστε το ψηφιακό σας έργο τέχνης στο Arc Layer 1",
+    "upload": {
+      "title": "Μεταφόρτωση Αρχείου",
+      "clickUpload": "Κάντε κλικ για μεταφόρτωση ή σύρετε και αποθέστε",
+      "fileTypes": "PNG, JPG, GIF έως 10MB",
+      "changeImage": "Αλλαγή Εικόνας"
+    },
+    "form": {
+      "name": "Όνομα",
+      "namePlaceholder": "π.χ. 'Αφηρημένα Όνειρα #1'",
+      "price": "Τιμή (USDC)",
+      "pricePlaceholder": "0.00",
+      "priceHelp": "Αφήστε κενό για δημιουργία χωρίς καταχώριση",
+      "description": "Περιγραφή",
+      "descriptionPlaceholder": "Πείτε στους συλλέκτες για το έργο τέχνης σας...",
+      "royalty": "Δικαιώματα (%)",
+      "royaltyHelp": "Κερδίστε αυτό το ποσοστό σε κάθε δευτερογενή πώληση (μέγιστο 10%)",
+      "royaltyPercentage": "Ποσοστό Δικαιωμάτων",
+      "required": "*",
+      "mediaFile": "Αρχείο Πολυμέσων",
+      "dragDrop": "Σύρετε & αποθέστε ή κάντε κλικ για περιήγηση",
+      "fileTypes": "PNG, JPG, GIF • Μέγιστο 10MB",
+      "uploadArtwork": "Μεταφόρτωση Έργου Τέχνης",
+      "changeImage": "Κάντε κλικ για αλλαγή εικόνας"
+    },
+    "info": {
+      "title": "Δωρεάν Δημιουργία Διαθέσιμη",
+      "description": "Τα πρώτα σας 5 NFTs είναι εντελώς δωρεάν. Χωρίς τέλη gas, χωρίς κρυφά κόστη.",
+      "mintCost": "Αυτή η δημιουργία κοστίζει {cost} USDC (έχετε χρησιμοποιήσει {used}/5 δωρεάν δημιουργίες)",
+      "mintFree": "Αυτή η δημιουργία είναι δωρεάν (έχετε χρησιμοποιήσει {used}/5 δωρεάν δημιουργίες)",
+      "checkingCost": "Έλεγχος κόστους δημιουργίας..."
+    },
+    "button": {
+      "create": "Δημιουργία NFT",
+      "minting": "Δημιουργία..."
+    },
+    "progress": {
+      "preparing": "Προετοιμασία NFT...",
+      "minting": "Δημιουργία NFT...",
+      "approving": "Έγκριση...",
+      "listing": "Καταχώριση για Πώληση...",
+      "preparingDesc": "Μεταφόρτωση του έργου τέχνης σας",
+      "mintingDesc": "Δημιουργία του NFT σας στο blockchain",
+      "approvingDesc": "Χορήγηση δικαιωμάτων marketplace",
+      "listingDesc": "Δημοσίευση στο marketplace",
+      "stepPreparing": "Προετοιμασία NFT",
+      "stepMinting": "Δημιουργία NFT",
+      "stepApproving": "Έγκριση Marketplace",
+      "stepListing": "Καταχώριση για Πώληση",
+      "viewExplorer": "Προβολή στον Explorer",
+      "confirmWallet": "Παρακαλώ επιβεβαιώστε τη συναλλαγή στο πορτοφόλι σας"
+    },
+    "success": {
+      "title": "Το NFT Δημιουργήθηκε με Επιτυχία!",
+      "messageListed": "Το NFT σας έχει δημιουργηθεί και καταχωρηθεί στο marketplace",
+      "messageMinted": "Το NFT σας έχει δημιουργηθεί στο πορτοφόλι σας",
+      "viewProfile": "Προβολή στο Προφίλ",
+      "createAnother": "Δημιουργία Άλλου"
+    },
+    "error": {
+      "title": "Η Συναλλαγή Απέτυχε",
+      "tryAgain": "Δοκιμάστε Ξανά"
+    }
+  },
+  "profile": {
+    "title": "Προφίλ",
+    "description": "Διαχειριστείτε τη συλλογή NFT και το προφίλ σας",
+    "connectWallet": "Συνδέστε το Πορτοφόλι Σας",
+    "connectWalletDescription": "Παρακαλώ συνδέστε το πορτοφόλι σας για να δείτε το προφίλ σας",
+    "tabs": {
+      "collected": "Συλλεγμένα",
+      "created": "Δημιουργημένα",
+      "listed": "Καταχωρημένα"
+    },
+    "stats": {
+      "collected": "Συλλεγμένα",
+      "created": "Δημιουργημένα",
+      "totalValue": "Συνολική Αξία",
+      "floorPrice": "Βασική Τιμή"
+    },
+    "empty": {
+      "noNFTs": "Δεν Υπάρχουν Ακόμα NFTs",
+      "collected": "Ξεκινήστε να συλλέγετε NFTs από το marketplace",
+      "created": "Δημιουργήστε το πρώτο σας NFT για να ξεκινήσετε",
+      "listed": "Καταχωρήστε τα NFTs σας προς πώληση"
+    }
+  },
+  "nft": {
+    "currentPrice": "Τρέχουσα Τιμή",
+    "buyNow": "Αγορά Τώρα",
+    "updateListing": "Ενημέρωση Καταχώρισης",
+    "cancelListing": "Ακύρωση Καταχώρισης",
+    "description": "Περιγραφή",
+    "details": "Λεπτομέρειες",
+    "activity": "Δραστηριότητα",
+    "ownedBy": "Ιδιοκτησία του",
+    "createdBy": "Δημιουργήθηκε από",
+    "you": "Εσείς",
+    "completePurchase": "Ολοκλήρωση Αγοράς",
+    "price": "Τιμή",
+    "creatorRoyalty": "Δικαιώματα Δημιουργού",
+    "total": "Σύνολο",
+    "confirm": "Επιβεβαίωση",
+    "cancel": "Ακύρωση"
+  },
   "wallet": {
     "balance": "Υπόλοιπο Πορτοφολιού",
     "total_value": "Συνολική Αξία",

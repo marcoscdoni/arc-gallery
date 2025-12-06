@@ -44,6 +44,137 @@
       "button": "Start Creating"
     }
   },
+  "explore": {
+    "title": "Explorar NFTs",
+    "description": "Descubre activos digitales únicos en Arc Layer 1",
+    "search": "Buscar NFTs por nombre...",
+    "sortBy": "Ordenar por:",
+    "categories": {
+      "all": "Todos los Artículos",
+      "art": "Arte",
+      "photography": "Fotografía",
+      "gaming": "Videojuegos",
+      "3d": "Modelos 3D"
+    },
+    "sort": {
+      "recent": "Añadidos Recientemente",
+      "priceLow": "Precio: Menor a Mayor",
+      "priceHigh": "Precio: Mayor a Menor",
+      "trending": "Tendencias"
+    },
+    "results": {
+      "found": "artículos encontrados",
+      "noResults": "No se Encontraron NFTs",
+      "tryAdjusting": "Intenta ajustar tu búsqueda o filtros"
+    }
+  },
+  "create": {
+    "title": "Crear NFT",
+    "description": "Acuña tu obra de arte digital en Arc Layer 1",
+    "upload": {
+      "title": "Subir Archivo",
+      "clickUpload": "Haz clic para subir o arrastra y suelta",
+      "fileTypes": "PNG, JPG, GIF hasta 10MB",
+      "changeImage": "Cambiar Imagen"
+    },
+    "form": {
+      "name": "Nombre",
+      "namePlaceholder": "ej. 'Sueños Abstractos #1'",
+      "price": "Precio (USDC)",
+      "pricePlaceholder": "0.00",
+      "priceHelp": "Dejar vacío para acuñar sin listar",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Cuéntales a los coleccionistas sobre tu obra de arte...",
+      "royalty": "Regalías (%)",
+      "royaltyHelp": "Gana este porcentaje en cada venta secundaria (máx. 10%)",
+      "royaltyPercentage": "Porcentaje de Regalías",
+      "required": "*",
+      "mediaFile": "Archivo Multimedia",
+      "dragDrop": "Arrastra y suelta o haz clic para explorar",
+      "fileTypes": "PNG, JPG, GIF • Máx. 10MB",
+      "uploadArtwork": "Subir Obra de Arte",
+      "changeImage": "Haz clic para cambiar imagen"
+    },
+    "info": {
+      "title": "Acuñación Gratuita Disponible",
+      "description": "Tus primeros 5 NFTs son completamente gratis. Sin tarifas de gas, sin costos ocultos.",
+      "mintCost": "Esta acuñación cuesta {cost} USDC (has usado {used}/5 acuñaciones gratis)",
+      "mintFree": "Esta acuñación es gratis (has usado {used}/5 acuñaciones gratis)",
+      "checkingCost": "Verificando costo de acuñación..."
+    },
+    "button": {
+      "create": "Crear NFT",
+      "minting": "Acuñando..."
+    },
+    "progress": {
+      "preparing": "Preparando NFT...",
+      "minting": "Acuñando NFT...",
+      "approving": "Aprobando...",
+      "listing": "Listando para la Venta...",
+      "preparingDesc": "Subiendo tu obra de arte",
+      "mintingDesc": "Creando tu NFT en la blockchain",
+      "approvingDesc": "Otorgando permisos al marketplace",
+      "listingDesc": "Publicando en el marketplace",
+      "stepPreparing": "Preparando NFT",
+      "stepMinting": "Acuñando NFT",
+      "stepApproving": "Aprobando Marketplace",
+      "stepListing": "Listando para la Venta",
+      "viewExplorer": "Ver en el Explorador",
+      "confirmWallet": "Por favor confirma la transacción en tu billetera"
+    },
+    "success": {
+      "title": "¡NFT Acuñado Exitosamente!",
+      "messageListed": "Tu NFT ha sido acuñado y listado en el marketplace",
+      "messageMinted": "Tu NFT ha sido acuñado en tu billetera",
+      "viewProfile": "Ver en Perfil",
+      "createAnother": "Crear Otro"
+    },
+    "error": {
+      "title": "Transacción Fallida",
+      "tryAgain": "Intentar de Nuevo"
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "description": "Gestiona tu colección de NFTs y perfil",
+    "connectWallet": "Conecta Tu Billetera",
+    "connectWalletDescription": "Por favor conecta tu billetera para ver tu perfil",
+    "tabs": {
+      "collected": "Coleccionados",
+      "created": "Creados",
+      "listed": "Listados"
+    },
+    "stats": {
+      "collected": "Coleccionados",
+      "created": "Creados",
+      "totalValue": "Valor Total",
+      "floorPrice": "Precio Mínimo"
+    },
+    "empty": {
+      "noNFTs": "Aún No Hay NFTs",
+      "collected": "Comienza a coleccionar NFTs del marketplace",
+      "created": "Crea tu primer NFT para comenzar",
+      "listed": "Lista tus NFTs para la venta"
+    }
+  },
+  "nft": {
+    "currentPrice": "Precio Actual",
+    "buyNow": "Comprar Ahora",
+    "updateListing": "Actualizar Listado",
+    "cancelListing": "Cancelar Listado",
+    "description": "Descripción",
+    "details": "Detalles",
+    "activity": "Actividad",
+    "ownedBy": "Propiedad de",
+    "createdBy": "Creado por",
+    "you": "Tú",
+    "completePurchase": "Completar Compra",
+    "price": "Precio",
+    "creatorRoyalty": "Regalías del Creador",
+    "total": "Total",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
+  },
   "wallet": {
     "balance": "Saldo de Billetera",
     "total_value": "Valor Total",

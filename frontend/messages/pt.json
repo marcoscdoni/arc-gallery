@@ -84,13 +84,23 @@
       "pricePlaceholder": "0.00",
       "priceHelp": "Deixe vazio para cunhar sem listar",
       "description": "Descrição",
-      "descriptionPlaceholder": "Conte sobre seu NFT...",
+      "descriptionPlaceholder": "Conte aos colecionadores sobre sua arte...",
       "royalty": "Royalty (%)",
-      "royaltyHelp": "Ganhe essa porcentagem em cada venda secundária (máx 10%)"
+      "royaltyHelp": "Ganhe essa porcentagem em cada venda secundária (máx 10%)",
+      "royaltyPercentage": "Porcentagem de Royalty",
+      "required": "*",
+      "mediaFile": "Arquivo de Mídia",
+      "dragDrop": "Arraste e solte ou clique para buscar",
+      "fileTypes": "PNG, JPG, GIF • Máx 10MB",
+      "uploadArtwork": "Enviar Arte",
+      "changeImage": "Clique para alterar imagem"
     },
     "info": {
-      "title": "Cunhagem Gratuita Disponível!",
-      "description": "Seus primeiros 5 NFTs são completamente gratuitos para cunhar. Depois disso, uma pequena taxa se aplica."
+      "title": "Cunhagem Gratuita Disponível",
+      "description": "Seus primeiros 5 NFTs são completamente gratuitos. Sem taxas de gas, sem custos ocultos.",
+      "mintCost": "Esta cunhagem custa {cost} USDC (você usou {used}/5 cunhagens grátis)",
+      "mintFree": "Esta cunhagem é gratuita (você usou {used}/5 cunhagens grátis)",
+      "checkingCost": "Verificando custo da cunhagem..."
     },
     "button": {
       "create": "Criar NFT",
@@ -111,6 +121,17 @@
       "stepListing": "Listando para Venda",
       "viewExplorer": "Ver no Explorer",
       "confirmWallet": "Por favor, confirme a transação na sua carteira"
+    },
+    "success": {
+      "title": "NFT Cunhado com Sucesso!",
+      "messageListed": "Seu NFT foi cunhado e listado no marketplace",
+      "messageMinted": "Seu NFT foi cunhado para sua carteira",
+      "viewProfile": "Ver no Perfil",
+      "createAnother": "Criar Outro"
+    },
+    "error": {
+      "title": "Transação Falhou",
+      "tryAgain": "Tentar Novamente"
     }
   },
   "profile": {
@@ -141,15 +162,25 @@
     "buyNow": "Comprar Agora",
     "updateListing": "Atualizar Listagem",
     "cancelListing": "Cancelar Listagem",
+    "listForSale": "Listar para Venda",
+    "notListed": "Não Listado",
+    "status": "Status",
     "description": "Descrição",
+    "noDescription": "Sem descrição",
     "details": "Detalhes",
     "activity": "Atividade",
     "ownedBy": "Pertence a",
     "createdBy": "Criado por",
     "you": "Você",
+    "contractAddress": "Endereço do Contrato",
+    "tokenId": "ID do Token",
+    "tokenStandard": "Padrão do Token",
+    "blockchain": "Blockchain",
+    "creatorRoyalty": "Royalty do Criador",
+    "loading": "Carregando...",
+    "notFound": "NFT não encontrado",
     "completePurchase": "Completar Compra",
     "price": "Preço",
-    "creatorRoyalty": "Royalty do Criador",
     "total": "Total",
     "confirm": "Confirmar",
     "cancel": "Cancelar"

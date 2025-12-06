@@ -9,10 +9,10 @@ const supabase = createClient(
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { nft_id, token_id, nft_contract, seller, price, tx_hash } = body;
+    const { nft_id, token_id, nft_contract, seller, price } = body;
 
     // Validate required fields
-    if (!nft_id || !token_id || !nft_contract || !seller || !price) {
+    if (!nft_id || token_id === undefined || !nft_contract || !seller || !price) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -33,21 +33,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create or update listing
+    // Deactivate any existing active listings for this NFT
+    await supabase
+      .from('listings')
+      .update({ is_active: false })
+      .eq('nft_contract', nft_contract.toLowerCase())
+      .eq('token_id', Number(token_id))
+      .eq('is_active', true);
+
+    // Create new listing with temporary listing_id (negative timestamp)
+    // The indexer will update it later with the actual on-chain listing ID
+    const tempListingId = -Date.now(); // Negative timestamp ensures uniqueness and won't conflict with real listing IDs
+    
     const { data, error } = await supabase
       .from('listings')
-      .upsert({
+      .insert({
+        listing_id: tempListingId,
         nft_id,
         token_id: Number(token_id),
         nft_contract: nft_contract.toLowerCase(),
-        seller: seller.toLowerCase(),
+        seller_address: seller.toLowerCase(),
         price: price.toString(),
+        token_address: nft_contract.toLowerCase(), // Using NFT contract as token address
         is_active: true,
-        tx_hash,
-        created_at: new Date().toISOString(),
-      }, {
-        onConflict: 'nft_contract,token_id',
-        ignoreDuplicates: false,
       })
       .select()
       .single();

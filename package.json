@@ -18,6 +18,13 @@
     "batch-mint": "hardhat run scripts/batch-mint.ts --network arcTestnet",
     "auction": "hardhat run scripts/create-auction.ts --network arcTestnet",
     "stats": "hardhat run scripts/stats.ts --network arcTestnet",
+    "indexer": "npx ts-node scripts/indexer.ts",
+    "indexer:start": "pm2 start ecosystem.config.js",
+    "indexer:stop": "pm2 stop arc-indexer",
+    "indexer:restart": "pm2 restart arc-indexer",
+    "indexer:logs": "pm2 logs arc-indexer",
+    "indexer:status": "pm2 status",
+    "sync-historical": "npx ts-node scripts/sync-historical.ts",
     "sync-nfts": "cd frontend && npx ts-node --esm scripts/sync-nfts.ts",
     "fix-images": "cd frontend && npx ts-node --esm scripts/fix-missing-images.ts",
     "console": "hardhat console --network arcTestnet"
@@ -54,6 +61,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.1",
-    "dotenv": "^16.3.1"
+    "@supabase/supabase-js": "^2.86.2",
+    "dotenv": "^16.6.1"
   }
 }

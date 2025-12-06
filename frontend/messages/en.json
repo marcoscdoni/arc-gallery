@@ -84,13 +84,23 @@
       "pricePlaceholder": "0.00",
       "priceHelp": "Leave empty to mint without listing",
       "description": "Description",
-      "descriptionPlaceholder": "Tell us about your NFT...",
+      "descriptionPlaceholder": "Tell collectors about your artwork...",
       "royalty": "Royalty (%)",
-      "royaltyHelp": "Earn this percentage on every secondary sale (max 10%)"
+      "royaltyHelp": "Earn this percentage on every secondary sale (max 10%)",
+      "royaltyPercentage": "Royalty Percentage",
+      "required": "*",
+      "mediaFile": "Media File",
+      "dragDrop": "Drag & drop or click to browse",
+      "fileTypes": "PNG, JPG, GIF • Max 10MB",
+      "uploadArtwork": "Upload Artwork",
+      "changeImage": "Click to change image"
     },
     "info": {
-      "title": "Free Minting Available!",
-      "description": "Your first 5 NFTs are completely free to mint. After that, a small fee applies."
+      "title": "Free Minting Available",
+      "description": "Your first 5 NFTs are completely free. No gas fees, no hidden costs.",
+      "mintCost": "This mint costs {cost} USDC (you've used {used}/5 free mints)",
+      "mintFree": "This mint is free (you've used {used}/5 free mints)",
+      "checkingCost": "Checking mint cost..."
     },
     "button": {
       "create": "Create NFT",
@@ -111,6 +121,17 @@
       "stepListing": "Listing for Sale",
       "viewExplorer": "View on Explorer",
       "confirmWallet": "Please confirm the transaction in your wallet"
+    },
+    "success": {
+      "title": "NFT Minted Successfully!",
+      "messageListed": "Your NFT has been minted and listed on the marketplace",
+      "messageMinted": "Your NFT has been minted to your wallet",
+      "viewProfile": "View in Profile",
+      "createAnother": "Create Another"
+    },
+    "error": {
+      "title": "Transaction Failed",
+      "tryAgain": "Try Again"
     }
   },
   "profile": {
@@ -141,15 +162,25 @@
     "buyNow": "Buy Now",
     "updateListing": "Update Listing",
     "cancelListing": "Cancel Listing",
+    "listForSale": "List for Sale",
+    "notListed": "Not Listed",
+    "status": "Status",
     "description": "Description",
+    "noDescription": "No description",
     "details": "Details",
     "activity": "Activity",
     "ownedBy": "Owned by",
     "createdBy": "Created by",
     "you": "You",
+    "contractAddress": "Contract Address",
+    "tokenId": "Token ID",
+    "tokenStandard": "Token Standard",
+    "blockchain": "Blockchain",
+    "creatorRoyalty": "Creator Royalty",
+    "loading": "Loading...",
+    "notFound": "NFT not found",
     "completePurchase": "Complete Purchase",
     "price": "Price",
-    "creatorRoyalty": "Creator Royalty",
     "total": "Total",
     "confirm": "Confirm",
     "cancel": "Cancel"

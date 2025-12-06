@@ -1,10 +1,44 @@
 'use client'
 
-import { useWriteContract, useWaitForTransactionReceipt, useAccount, usePublicClient } from 'wagmi'
+import { useWriteContract, useWaitForTransactionReceipt, useAccount, usePublicClient, useReadContract } from 'wagmi'
 import { parseUnits } from 'viem'
 import { ARC_CHAIN_ID, CONTRACTS } from '@/lib/contracts'
 import ArcNFTAbi from '@/lib/abis/ArcNFT.json'
 import ArcMarketplaceAbi from '@/lib/abis/ArcMarketplace.json'
+
+// Hook to read listing data from blockchain
+export function useMarketplaceListing_Read(tokenId: bigint | undefined) {
+  const { data, isLoading, refetch } = useReadContract({
+    chainId: ARC_CHAIN_ID,
+    address: CONTRACTS.MARKETPLACE as `0x${string}`,
+    abi: ArcMarketplaceAbi,
+    functionName: 'getListing',
+    args: tokenId !== undefined ? [CONTRACTS.NFT, tokenId] : undefined,
+    query: {
+      enabled: tokenId !== undefined,
+    },
+  })
+
+  // getListing returns a Listing struct: { seller: address, price: uint256, active: bool }
+  const listing = data as { seller: string; price: bigint; active: boolean } | undefined
+
+  console.log('🔍 useMarketplaceListing_Read:', {
+    tokenId,
+    data,
+    listing,
+    seller: listing?.seller,
+    price: listing?.price,
+    isActive: listing?.active,
+  })
+
+  return {
+    price: listing?.price,
+    seller: listing?.seller,
+    isActive: listing?.active,
+    isLoading,
+    refetch,
+  }
+}
 
 export function useNFTMint() {
   const { data: hash, writeContract, writeContractAsync, isPending, error } = useWriteContract()
@@ -193,6 +227,73 @@ export function useMarketplaceBuy() {
 
   return {
     buyItem,
+    hash,
+    isPending,
+    isConfirming,
+    isSuccess,
+    error,
+  }
+}
+
+export function useMarketplaceCancelListing() {
+  const { data: hash, writeContractAsync, isPending, error } = useWriteContract()
+
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+    chainId: ARC_CHAIN_ID,
+    hash,
+  })
+
+  const cancelListing = async (tokenId: bigint) => {
+    try {
+      console.log('❌ useMarketplaceCancelListing: Canceling listing for tokenId:', tokenId)
+      const txHash = await writeContractAsync({
+        chainId: ARC_CHAIN_ID,
+        address: CONTRACTS.MARKETPLACE as `0x${string}`,
+        abi: ArcMarketplaceAbi,
+        functionName: 'cancelListing',
+        args: [CONTRACTS.NFT, tokenId],
+        gas: 200000n,
+      })
+      console.log('✅ useMarketplaceCancelListing: Cancel transaction hash:', txHash)
+      return txHash
+    } catch (err) {
+      console.error('❌ useMarketplaceCancelListing: Cancel listing error:', err)
+      throw err
+    }
+  }
+
+  return {
+    cancelListing,
+    hash,
+    isPending,
+    isConfirming,
+    isSuccess,
+    error,
+  }
+}
+
+export function useMarketplaceUpdateListing() {
+  const { data: hash, writeContractAsync, isPending, error } = useWriteContract()
+
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+    chainId: ARC_CHAIN_ID,
+    hash,
+  })
+
+  const updateListing = async (tokenId: bigint, newPriceInUSDC: string) => {
+    const priceInWei = parseUnits(newPriceInUSDC, 18)
+
+    return writeContractAsync({
+      chainId: ARC_CHAIN_ID,
+      address: CONTRACTS.MARKETPLACE as `0x${string}`,
+      abi: ArcMarketplaceAbi,
+      functionName: 'updateListing',
+      args: [CONTRACTS.NFT, tokenId, priceInWei],
+    })
+  }
+
+  return {
+    updateListing,
     hash,
     isPending,
     isConfirming,
